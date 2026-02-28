@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -26,7 +25,6 @@ const App = () => (
           {/* MODULE_ROUTES_END */}
         </Routes>
       </BrowserRouter>
-      <Analytics />
     </TooltipProvider>
     {/* MODULE_PROVIDERS_CLOSE */}
   </QueryClientProvider>
