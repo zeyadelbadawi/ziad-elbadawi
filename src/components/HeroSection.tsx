@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { ArrowDown, Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, ChevronDown, Menu, X } from "lucide-react";
 
 /* ─── Particle + Mouse Spotlight Canvas ─── */
 interface Particle {
@@ -379,6 +379,7 @@ function NoiseOverlay() {
 /* ─── Main Hero ─── */
 export default function HeroSection() {
     const [phase, setPhase] = useState(0);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     // phase 0: nothing, 1: bg visible, 2: badge, 3: name, 4: title, 5: subtitle, 6: buttons, 7: social+scroll
 
     useEffect(() => {
@@ -431,6 +432,7 @@ export default function HeroSection() {
                             className="w-10 h-10 object-contain transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(212,168,67,0.4)]"
                         />
                     </a>
+                    {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
                         {["Work", "Expertise", "Experience", "Contact"].map((item, i) => (
                             <a
@@ -455,7 +457,42 @@ export default function HeroSection() {
                             Resume
                         </a>
                     </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className={`md:hidden p-2 text-[#D4A843] hover:text-white transition-colors z-40 ${phase >= 2 ? "opacity-100" : "opacity-50"}`}
+                        aria-label="Toggle menu"
+                    >
+                        {mobileMenuOpen ? <X size={28} strokeWidth={2} /> : <Menu size={28} strokeWidth={2} />}
+                    </button>
                 </div>
+
+                {/* Mobile Navigation */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden border-t border-[#1A1A1A] bg-[#0A0A0A]/95 backdrop-blur-md">
+                        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+                            {["Work", "Expertise", "Experience", "Contact"].map((item) => (
+                                <a
+                                    key={item}
+                                    href={`#${item.toLowerCase()}`}
+                                    className="text-sm text-[#666] hover:text-[#D4A843] transition-colors"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    {item}
+                                </a>
+                            ))}
+                            <a
+                                href="/assets/resume.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sm px-4 py-2 rounded-lg glass text-[#D4A843] border border-[#D4A843]/20 hover:bg-[#D4A843]/10 text-center transition-colors"
+                            >
+                                Resume
+                            </a>
+                        </div>
+                    </div>
+                )}
             </nav>
 
             {/* Hero Content */}
@@ -473,16 +510,16 @@ export default function HeroSection() {
                 </div>
 
                 {/* Name — character reveal */}
-                <h1 className="mb-5 relative">
+                <h1 className="mb-5 relative w-full">
                     {phase >= 3 && (
                         <CharReveal
                             text="Ziad Elbadawi"
                             startDelay={0}
-                            className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8rem] font-extrabold tracking-tight leading-none hero-name-glow"
+                            className="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] xl:text-[8rem] font-extrabold tracking-tight leading-tight hero-name-glow whitespace-nowrap sm:whitespace-normal"
                         />
                     )}
                     {phase < 3 && (
-                        <span className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8rem] font-extrabold tracking-tight leading-none opacity-0">
+                        <span className="text-4xl sm:text-5xl md:text-8xl lg:text-[7rem] xl:text-[8rem] font-extrabold tracking-tight leading-tight opacity-0 whitespace-nowrap sm:whitespace-normal">
                             Ziad Elbadawi
                         </span>
                     )}
