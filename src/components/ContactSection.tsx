@@ -137,8 +137,8 @@ export default function ContactSection() {
             <footer className="max-w-7xl mx-auto mt-32 pt-8 border-t border-[#1A1A1A]">
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                        <img src="https://mgx-backend-cdn.metadl.com/generate/images/995247/2026-02-28/03e1e2a9-4613-49a8-bd47-9416fac0fee3.png" alt="ZE" className="w-8 h-8 object-contain" />
-                        <span className="text-sm text-[#555]">© 2025 Ziad Elbadawi. All rights reserved.</span>
+                        <img src="/assets/logo.png" alt="Ziad Elbadawi" className="w-8 h-8 object-contain transition-all hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(212,168,67,0.4)]" />
+                        <span className="text-sm text-[#555]">© 2026 Ziad Elbadawi. All rights reserved.</span>
                     </div>
                     <div className="flex items-center gap-4">
                         {[
