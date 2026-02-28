@@ -1,61 +1,121 @@
-# Shadcn-UI Template Usage Instructions
+# Ziad Elbadawi – Full Stack Developer Portfolio
 
-## technology stack
+A premium, product-focused portfolio showcasing full-stack engineering, advanced WordPress development, and scalable production systems.
 
-This project is built with:
+Built with Next.js and Tailwind CSS, with a focus on performance, clean architecture, and modern user experience.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+---
+
+## About The Project
+
+This portfolio is designed to present real-world engineering work, not just UI.
+
+It highlights:
+- Full-stack applications
+- Custom WordPress development
+- Production-level systems
+- Performance and scalability
+
+The goal is to represent a developer who builds complete systems, not just interfaces.
+
+---
+
+## Tech Stack
+
+Frontend:
+- React.js
+- Next.js
 - Tailwind CSS
 
-All shadcn/ui components have been downloaded under `@/components/ui`.
+Backend / Concepts:
+- Node.js
+- REST APIs
+- Authentication (JWT)
+- WebSockets
 
-## File Structure
+CMS & E-commerce:
+- WordPress (custom plugins and theme customization)
+- Shopify
 
-- `index.html` - HTML entry point
-- `vite.config.ts` - Vite configuration file
-- `tailwind.config.js` - Tailwind CSS configuration file
-- `package.json` - NPM dependencies and scripts
-- `src/app.tsx` - Root component of the project
-- `src/main.tsx` - Project entry point
-- `src/index.css` - Existing CSS configuration
+Tools & Infrastructure:
+- Git and GitHub
+- VPS / Linux
+- Docker
+- Redis
 
-## Components
+---
 
-- All shadcn/ui components are pre-downloaded and available at `@/components/ui`
+## Features
 
-## Styling
+- High-performance, optimized UI
+- Clean and modern SaaS-style design
+- Smooth animations and interactions
+- Fully responsive design
+- Modular and scalable architecture
+- Real project showcases with screenshots
 
-- Add global styles to `src/index.css` or create new CSS files as needed
-- Use Tailwind classes for styling components
+---
 
-## Development
+## Projects
 
-- Import components from `@/components/ui` in your React components
-- Customize the UI by modifying the Tailwind configuration
+Healthcare Management System  
+Full-stack system supporting multi-program workflows, real-time updates, and secure authentication.  
+Stack: Next.js, Node.js, MongoDB
 
-## Note
+File Upload & Analysis System  
+Asynchronous file processing with OCR, PDF parsing, and real-time updates.  
+Stack: Next.js, NestJS, PostgreSQL, Redis
 
-The `@/` path alias points to the `src/` directory
+E-commerce Platform  
+Scalable e-commerce system with payment integration and admin dashboard.  
+Stack: Next.js, Node.js, PostgreSQL
 
-# Commands
+Distribution Website  
+Custom APIs and dynamic features including automated lucky draw system.  
+Stack: Next.js, Node.js
 
-**Install Dependencies**
+---
 
-```shell
-pnpm i
-```
+## WordPress Engineering
 
-**Start Preview**
+Strong experience in extending WordPress beyond standard usage:
 
-```shell
-pnpm run dev
-```
+- Custom plugin development (PHP)
+- Tutor LMS customization
+- Performance optimization
+- Security hardening
 
-**To build**
+Websites:
 
-```shell
-pnpm run build
-```
+- https://masterpieceavs.com  
+- https://sure-bs.com  
+- https://britmedhealthcare.co.uk  
+- https://arab-security.com  
+- https://asgdistribution.com  
+- https://advan-sec.com  
+- https://arabsecuritygulf.com  
+- https://sure-education.com  
+- https://rawc.ae  
+
+---
+
+## Advanced Systems
+
+Exam Lock Plugin  
+Prevents cheating using tab detection, copy/paste blocking, and fullscreen enforcement.
+
+Plagiarism Detection System  
+Analyzes submissions and calculates similarity using secure AJAX handling.
+
+Tutor LMS Extensions  
+Includes survey systems, automated user grouping, and BuddyPress integration.
+
+---
+
+## Performance
+
+- Optimized assets and images
+- Lazy loading
+- Efficient rendering
+- Smooth animations
+
