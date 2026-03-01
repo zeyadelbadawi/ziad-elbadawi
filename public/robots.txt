@@ -1,2 +1,17 @@
 User-agent: *
 Allow: /
+Disallow: /auth/
+Disallow: /.vercel/
+
+# Specific rules for search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://ziad-elbadawi.vercel.app/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
