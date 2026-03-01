@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Mail, Phone, Linkedin, Github, ArrowUpRight, MapPin } from "lucide-react";
+import { MessageCircle, Phone, Linkedin, Github, ArrowUpRight, MapPin, Mail } from "lucide-react";
 
 function useInView(threshold = 0.15) {
     const ref = useRef<HTMLDivElement>(null);
@@ -123,10 +123,12 @@ export default function ContactSection() {
                         }`}
                 >
                     <a
-                        href="mailto:zeyadelbadawi.ze@gmail.com"
+                        href="https://wa.me/201069942554?text=Hi%20Ziad%2C%20I'd%20like%20to%20discuss%20a%20project%20with%20you."
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="group inline-flex items-center gap-3 px-10 py-5 bg-[#D4A843] text-[#0A0A0A] font-bold text-lg rounded-2xl transition-all duration-300 hover:shadow-[0_0_40px_rgba(212,168,67,0.25)] hover:scale-[1.02]"
                     >
-                        <Mail className="w-5 h-5" />
+                        <MessageCircle className="w-5 h-5" />
                         <span>Start a Conversation</span>
                         <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </a>
@@ -138,7 +140,7 @@ export default function ContactSection() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <img src="/assets/logo.png" alt="Ziad Elbadawi" className="w-8 h-8 object-contain transition-all hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(212,168,67,0.4)]" />
-                        <span className="text-sm text-[#555]">© 2026 Ziad Elbadawi. All rights reserved.</span>
+                        <span className="text-sm text-[#555]">© 2025 Ziad Elbadawi. All rights reserved.</span>
                     </div>
                     <div className="flex items-center gap-4">
                         {[
