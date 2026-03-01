@@ -36,16 +36,43 @@ interface Project {
 
 const projects: Project[] = [
     {
-        title: "Healthcare Management System",
-        subtitle: "Full Stack — Next.js + Express + MongoDB",
-        date: "May 2025 – Dec 2025",
+        title: "Rukn Alwatikon Rehabilitation Center",
+        subtitle: "Healthcare Management System — Full Stack",
+        date: "2025 – Present",
         description: [
-            "Production healthcare platform supporting multiple therapeutic programs and user roles with 50+ concurrent users and 99.9% uptime.",
-            "Engineered document processing workflow using Syncfusion, Mammoth.js, and Puppeteer for DOCX parsing and PDF generation.",
-            "Real-time data synchronization via WebSockets, appointment scheduling, multi-program enrollment, and integrated payment processing.",
+            "Complete healthcare management platform for Rukn Alwatikon Rehabilitation Center managing patients, doctors, and therapeutic programs.",
+            "Real-time dashboard with statistics tracking, appointment scheduling, multi-role access control (Students, Doctors, Accounts), and financial management.",
+            "Integrated patient enrollment system with document processing, payment tracking, and departmental organization for multiple rehabilitation specialties.",
         ],
-        tech: ["Next.js", "Express", "MongoDB", "WebSockets", "JWT", "RBAC"],
-        image: "https://mgx-backend-cdn.metadl.com/generate/images/995247/2026-02-28/f40434c8-3a85-4000-8f9a-037d7198ca08.png",
+        tech: ["React", "Next.js", "Node.js", "MongoDB", "RBAC", "Real-time Data"],
+        image: "/projects/rukn-alwatikon.png",
+        link: "https://rawc.vercel.app",
+    },
+    {
+        title: "ASG Distribution",
+        subtitle: "B2B Distribution Platform — Full Stack",
+        date: "2024 – Present",
+        description: [
+            "Enterprise distribution platform for Arab Security Group connecting suppliers, partners, and customers with seamless B2B operations.",
+            "Custom RESTful APIs for inventory management, partner networks, and sales operations with role-based access control.",
+            "Responsive web design optimized for desktop and mobile with real-time order tracking and communication systems.",
+        ],
+        tech: ["Next.js", "Node.js", "REST API", "PostgreSQL", "JWT", "Responsive Design"],
+        image: "/projects/asg-distribution.png",
+        link: "http://asgdistribution.com",
+    
+    },
+        {
+        title: "ASG Smart",
+        subtitle: "E-Commerce Platform — Full Stack",
+        date: "2024",
+        description: [
+            "Full-stack e-commerce platform for smart home security products with integrated payment processing and inventory management.",
+            "Admin dashboard for product management, order tracking, and customer analytics with secure authentication.",
+            "Feature-rich shopping experience with product filtering, secure checkout, and 24/7 customer support integration.",
+        ],
+        tech: ["Next.js", "React", "Node.js", "PostgreSQL", "Paymob", "Stripe"],
+        image: "/projects/asg-smart.png",
     },
     {
         title: "File Upload & Analysis System",
@@ -57,29 +84,10 @@ const projects: Project[] = [
         ],
         tech: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Redis", "Bull"],
         image: "https://mgx-backend-cdn.metadl.com/generate/images/995247/2026-02-28/4811923b-61ee-47d4-905b-718ac0bbbf02.png",
+        link: "https://github.com/zeyadelbadawi/File-Upload-and-Analysis-System-Backend.git",
+
     },
-    {
-        title: "ASG Smart E-commerce Platform",
-        subtitle: "Full Stack — Next.js + Node.js + PostgreSQL",
-        date: "Aug 2024",
-        description: [
-            "Full-stack e-commerce platform with Paymob payment gateway integration supporting multiple payment methods.",
-            "Admin dashboard for managing products, orders, and user analytics with secure session management using JWT and cookies.",
-        ],
-        tech: ["Next.js", "React", "Node.js", "PostgreSQL", "Paymob", "JWT"],
-        image: "https://mgx-backend-cdn.metadl.com/generate/images/995247/2026-02-28/7a150afb-a1d5-46c8-aab3-567d7241532b.png",
-    },
-    {
-        title: "Arab Security Distribution Website",
-        subtitle: "Full Stack — Next.js + React + Node.js",
-        date: "Jun 2024",
-        description: [
-            "Responsive web application with custom RESTful APIs for dynamic content management and seamless frontend-backend communication.",
-            "Lucky Draw system with automated winner selection logic, modern UX design optimized for cross-device compatibility.",
-        ],
-        tech: ["Next.js", "React", "Node.js", "REST APIs", "UX Design"],
-        image: "https://mgx-backend-cdn.metadl.com/generate/images/995247/2026-02-28/ebd3d4ca-635b-4f3e-860a-daf13c972988.png",
-    },
+
 ];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
