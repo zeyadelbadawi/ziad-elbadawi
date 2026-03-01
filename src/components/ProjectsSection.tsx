@@ -46,7 +46,7 @@ const projects: Project[] = [
         ],
         tech: ["React", "Next.js", "Node.js", "MongoDB", "RBAC", "Real-time Data"],
         image: "/projects/rukn-alwatikon.png",
-        link: "https://rawc.vercel.app",
+        link: "https://rawc.vercel.app/clientportal",
     },
     {
         title: "ASG Distribution",
