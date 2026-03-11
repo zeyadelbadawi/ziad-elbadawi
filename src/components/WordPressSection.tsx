@@ -426,7 +426,7 @@ export default function WordPressSection() {
 
                                     {/* Date side */}
                                     <div className="md:w-1/2 md:text-right md:pr-12 pl-8 md:pl-0">
-                                        <span className="text-sm text-[#D4A843] font-mono">2021 – 2023</span>
+                                        <span className="text-sm text-[#D4A843] font-mono">2019 – 2023</span>
                                         <p className="text-xs text-[#555] mt-1">London, United Kingdom</p>
                                     </div>
 
@@ -446,7 +446,7 @@ export default function WordPressSection() {
 
                                     {/* Date side */}
                                     <div className="md:w-1/2 md:order-2 md:pl-12 pl-8 md:pl-0">
-                                        <span className="text-sm text-[#D4A843] font-mono">2019 – 2021</span>
+                                        <span className="text-sm text-[#D4A843] font-mono">2019 – 2023</span>
                                         <p className="text-xs text-[#555] mt-1">Cairo, Egypt</p>
                                     </div>
 
