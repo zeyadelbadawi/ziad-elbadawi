@@ -44,7 +44,7 @@ const wordpressSites = [
     { name: "Advan Sec", url: "https://advan-sec.com", desc: "Advanced Security" },
     { name: "Arab Security Gulf", url: "https://arabsecuritygulf.com", desc: "Gulf Operations" },
     { name: "Sure Education", url: "https://sure-education.com", desc: "Education Platform" },
-    { name: "RAWC", url: "https://rawc.ae", desc: "UAE Operations" },
+    { name: "RAWC", url: "https://rawc.ae", desc: "Rehabilitation Center" },
 ];
 
 const wpSkills = [
