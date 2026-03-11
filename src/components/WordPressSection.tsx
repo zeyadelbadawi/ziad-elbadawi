@@ -433,12 +433,8 @@ export default function WordPressSection() {
                                     {/* Content side */}
                                     <div className="md:w-1/2 md:pl-12 pl-8 md:pl-0">
                                         <h4 className="text-xl font-bold mb-1">Greenwich University</h4>
-                                        <p className="text-sm text-[#888] mb-3">Exchange Program · Bachelor of Science</p>
-                                        <ul className="space-y-2">
-                                            <li className="text-sm text-[#666] leading-relaxed">Completed final 2 years of Software Engineering degree abroad</li>
-                                            <li className="text-sm text-[#666] leading-relaxed">International education experience with UK curriculum standards</li>
-                                            <li className="text-sm text-[#666] leading-relaxed">Advanced modules in modern software development practices</li>
-                                        </ul>
+                                        <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering<</p>
+                                      
                                     </div>
                                 </div>
 
@@ -458,11 +454,7 @@ export default function WordPressSection() {
                                     <div className="md:w-1/2 md:order-1 md:pr-12 pl-8 md:pl-0">
                                         <h4 className="text-xl font-bold mb-1">MSA University</h4>
                                         <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering</p>
-                                        <ul className="space-y-2">
-                                            <li className="text-sm text-[#666] leading-relaxed">Foundation coursework in computer science and engineering principles</li>
-                                            <li className="text-sm text-[#666] leading-relaxed">Strong grounding in algorithms, data structures, and OOP design</li>
-                                            <li className="text-sm text-[#666] leading-relaxed">Web development and database management fundamentals</li>
-                                        </ul>
+                                       
                                     </div>
                                 </div>
                             </div>
