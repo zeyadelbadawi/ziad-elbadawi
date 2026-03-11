@@ -10,6 +10,8 @@ import {
     Shield,
     Zap,
     Brain,
+    CheckCircle,
+    Award,
 } from "lucide-react";
 
 function useInView(threshold = 0.05) {
@@ -44,7 +46,7 @@ const wordpressSites = [
     { name: "Advan Sec", url: "https://advan-sec.com", desc: "Advanced Security" },
     { name: "Arab Security Gulf", url: "https://arabsecuritygulf.com", desc: "Gulf Operations" },
     { name: "Sure Education", url: "https://sure-education.com", desc: "Education Platform" },
-    { name: "RAWC", url: "https://rawc.ae", desc: "Rehabilitation Center" },
+    { name: "RAWC", url: "https://rawc.ae", desc: "UAE Operations" },
 ];
 
 const wpSkills = [
@@ -267,7 +269,7 @@ export default function WordPressSection() {
                     >
                         <span className="text-xs tracking-[0.3em] uppercase text-[#D4A843] font-medium">WordPress Engineering</span>
                         <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-4">
-                            9+ Production WordPress Websites
+                            9+ Production Websites
                         </h2>
                         <p className="text-[#666] text-lg max-w-2xl">
                             Custom WordPress development — from plugin engineering to performance optimization and security hardening.
@@ -426,15 +428,36 @@ export default function WordPressSection() {
 
                                     {/* Date side */}
                                     <div className="md:w-1/2 md:text-right md:pr-12 pl-8 md:pl-0">
-                                        <span className="text-sm text-[#D4A843] font-mono">2019 – 2023</span>
+                                        <span className="text-sm text-[#D4A843] font-mono">2021 – 2023</span>
                                         <p className="text-xs text-[#555] mt-1">London, United Kingdom</p>
                                     </div>
 
                                     {/* Content side */}
                                     <div className="md:w-1/2 md:pl-12 pl-8 md:pl-0">
-                                        <h4 className="text-xl font-bold mb-1">Greenwich University</h4>
-                                        <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering</p>
-                                      
+                                        <div className="flex items-start justify-between gap-4 mb-2">
+                                            <div>
+                                                <h4 className="text-xl font-bold">Greenwich University</h4>
+                                                <p className="text-sm text-[#888]">Exchange Program · Bachelor of Science</p>
+                                            </div>
+                                            <a
+                                                href="https://graduatedocsverifyqr.gre.ac.uk/?reference=58999905-01-QW43"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="group flex items-center gap-2 px-3 py-2 rounded-lg bg-[#D4A843]/10 border border-[#D4A843]/20 hover:border-[#D4A843]/40 hover:bg-[#D4A843]/15 transition-all flex-shrink-0"
+                                            >
+                                                <CheckCircle className="w-4 h-4 text-[#D4A843]" />
+                                                <span className="text-xs font-semibold text-[#D4A843] group-hover:text-white transition-colors">Verified</span>
+                                            </a>
+                                        </div>
+                                        <div className="mb-3 p-3 rounded-lg bg-[#1A1A1A] border border-[#D4A843]/10">
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <Award className="w-4 h-4 text-[#D4A843]" />
+                                                <span className="text-xs font-semibold text-[#D4A843]">Bachelor of Science (Second Class Honours)</span>
+                                            </div>
+                                            <p className="text-xs text-[#666] ml-6">Computer Science (Software Engineering)</p>
+                                            <p className="text-xs text-[#555] ml-6 mt-1">Awarded 7 September 2023 · SmartVerify+ Certified</p>
+                                        </div>
+
                                     </div>
                                 </div>
 
@@ -447,14 +470,14 @@ export default function WordPressSection() {
                                     {/* Date side */}
                                     <div className="md:w-1/2 md:order-2 md:pl-12 pl-8 md:pl-0">
                                         <span className="text-sm text-[#D4A843] font-mono">2019 – 2023</span>
-                                        <p className="text-xs text-[#555] mt-1">Cairo, Egypt</p>
+                                        <p className="text-xs text-[#555] mt-1">6th October City, Egypt</p>
                                     </div>
 
                                     {/* Content side */}
                                     <div className="md:w-1/2 md:order-1 md:pr-12 pl-8 md:pl-0">
                                         <h4 className="text-xl font-bold mb-1">MSA University</h4>
                                         <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering</p>
-                                       
+
                                     </div>
                                 </div>
                             </div>
