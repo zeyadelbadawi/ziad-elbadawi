@@ -177,7 +177,7 @@ export default function ProjectsSection() {
                 >
                     <span className="text-xs tracking-[0.3em] uppercase text-[#D4A843] font-medium">Selected Work</span>
                     <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mt-4">
-                        Production Systems
+                        Production Web Applications
                     </h2>
                     <p className="text-[#666] mt-4 text-lg max-w-xl mx-auto">
                         Real-world applications built for scale, security, and performance.
