@@ -38,7 +38,7 @@ const projects: Project[] = [
     {
         title: "Rukn Alwatikon Rehabilitation Center",
         subtitle: "Healthcare Management System — Full Stack",
-        date: "2025 – Present",
+        date: "2025",
         description: [
             "Complete healthcare management platform for Rukn Alwatikon Rehabilitation Center managing patients, doctors, and therapeutic programs.",
             "Real-time dashboard with statistics tracking, appointment scheduling, multi-role access control (Students, Doctors, Accounts), and financial management.",
@@ -51,7 +51,7 @@ const projects: Project[] = [
     {
         title: "ASG Distribution",
         subtitle: "B2B Distribution Platform — Full Stack",
-        date: "2024 – Present",
+        date: "2024",
         description: [
             "Enterprise distribution platform for Arab Security Group connecting suppliers, partners, and customers with seamless B2B operations.",
             "Custom RESTful APIs for inventory management, partner networks, and sales operations with role-based access control.",
