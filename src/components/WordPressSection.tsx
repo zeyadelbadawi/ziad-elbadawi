@@ -452,7 +452,7 @@ export default function WordPressSection() {
                                         <div className="mb-3 p-3 rounded-lg bg-[#1A1A1A] border border-[#D4A843]/10">
                                             <div className="flex items-center gap-2 mb-1">
                                                 <Award className="w-4 h-4 text-[#D4A843]" />
-                                                <span className="text-xs font-semibold text-[#D4A843]">Bachelor of Science (Second Class Honours)</span>
+                                                <span className="text-xs font-semibold text-[#D4A843]">Bachelor of Science</span>
                                             </div>
                                             <p className="text-xs text-[#666] ml-6">Computer Science (Software Engineering)</p>
                                             <p className="text-xs text-[#555] ml-6 mt-1">Awarded 7 September 2023 · SmartVerify+ Certified</p>
