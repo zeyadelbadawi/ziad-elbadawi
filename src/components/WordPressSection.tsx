@@ -267,7 +267,7 @@ export default function WordPressSection() {
                     >
                         <span className="text-xs tracking-[0.3em] uppercase text-[#D4A843] font-medium">WordPress Engineering</span>
                         <h2 className="text-4xl sm:text-5xl font-bold mt-4 mb-4">
-                            9+ Production Websites
+                            9+ Production WordPress Websites
                         </h2>
                         <p className="text-[#666] text-lg max-w-2xl">
                             Custom WordPress development — from plugin engineering to performance optimization and security hardening.
