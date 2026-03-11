@@ -433,7 +433,7 @@ export default function WordPressSection() {
                                     {/* Content side */}
                                     <div className="md:w-1/2 md:pl-12 pl-8 md:pl-0">
                                         <h4 className="text-xl font-bold mb-1">Greenwich University</h4>
-                                        <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering<</p>
+                                        <p className="text-sm text-[#888] mb-3">Bachelor of Science in Software Engineering</p>
                                       
                                     </div>
                                 </div>
