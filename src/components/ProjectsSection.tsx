@@ -77,7 +77,7 @@ const projects: Project[] = [
     {
         title: "File Upload & Analysis System",
         subtitle: "Full Stack — Next.js + NestJS + PostgreSQL",
-        date: "Mar 2025",
+        date: "2025",
         description: [
             "Scalable file processing platform with async workflows using Redis, Bull queues, and WebSockets for OCR and PDF parsing.",
             "Drag-and-drop upload interface with real-time progress tracking, secure JWT authentication, and role-based access control.",
