@@ -1,0 +1,511 @@
+\@startuml "Feminine Queens Awakening - Sequence Diagrams"
+
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+title Feminine Queens Awakening - Program Call Flows
+
+' ====================================================
+' FLOW 1: New Visitor → Quiz → Lead Capture
+' ====================================================
+
+newpage "Flow 1: Quiz Funnel - Lead Capture"
+
+actor "Visitor" as V
+participant "Homepage" as HP
+participant "Quiz Page" as QP
+participant "Quiz Service\n(Edge Function)" as QS
+participant "Lead Service\n(Edge Function)" as LS
+participant "ActiveCampaign\nAPI" as AC
+database "Quiz Results DB" as QDB
+database "Leads DB" as LDB
+
+V -> HP: Visit homepage
+HP -> V: Render page with Quiz CTA
+
+V -> QP: Click "Take the Quiz"
+QP -> QS: POST /api/quiz/start
+    note right
+        Input: {
+            "session_id": "uuid"
+        }
+    end note
+QS --> QP: Return quiz questions
+    note right
+        Output: {
+            "quiz_id": "uuid",
+            "questions": [
+                {"id": 1, "text_ar": "...", "options": [...]},
+                {"id": 2, "text_ar": "...", "options": [...]}
+            ]
+        }
+    end note
+
+V -> QP: Answer 7 questions
+QP -> QS: POST /api/quiz/submit
+    note right
+        Input: {
+            "session_id": "uuid",
+            "answers": {
+                "q1": "single",
+                "q2": "self_worth",
+                "q3": "complicated",
+                "q4": "heal_wounds",
+                "q5": "ready_course",
+                "q6": "self_paced",
+                "q7": "soon"
+            }
+        }
+    end note
+QS -> QS: Calculate persona\n(scoring algorithm)
+QS -> QDB: Save quiz result
+QS --> QP: Return persona + recommendation
+    note right
+        Output: {
+            "persona": "HANA",
+            "recommended_course": {
+                "slug": "mother-wound",
+                "title_ar": "...",
+                "price_usd": 777
+            }
+        }
+    end note
+
+QP -> V: Show email capture screen\n(before results)
+
+V -> QP: Submit email + name
+QP -> LS: POST /api/leads/capture
+    note right
+        Input: {
+            "email": "hana@example.com",
+            "full_name": "Hana",
+            "source": "QUIZ",
+            "quiz_persona": "HANA",
+            "recommended_course_id": "uuid"
+        }
+    end note
+LS -> LDB: Save lead record
+LS -> AC: POST /contacts
+    note right
+        Input: {
+            "email": "hana@example.com",
+            "tags": ["quiz_lead", "persona_hana"],
+            "custom_fields": {
+                "persona": "HANA",
+                "recommended_program": "mother-wound"
+            }
+        }
+    end note
+AC --> LS: Contact created + automation triggered
+LS --> QP: Lead captured successfully
+
+QP -> V: Show personalized results page\nwith recommended program CTA
+
+' ====================================================
+' FLOW 2: Registration → Purchase → Enrollment
+' ====================================================
+
+newpage "Flow 2: Registration → Purchase → Enrollment"
+
+actor "Visitor" as V2
+participant "Program\nSales Page" as SP
+participant "Auth Pages" as AP
+participant "Checkout Page" as CP
+participant "Auth Service\n(Edge Function)" as AS
+participant "Payment Service\n(Edge Function)" as PS
+participant "Enrollment Service\n(Edge Function)" as ES
+participant "Notification Service\n(Edge Function)" as NS
+participant "Stripe API" as ST
+participant "ActiveCampaign" as AC2
+database "Users DB" as UDB
+database "Orders DB" as ODB
+database "Enrollments DB" as EDB
+
+V2 -> SP: View program sales page\n(/programs/mother-wound)
+SP -> V2: Render sales page with\npricing ($777 / 3×$277)
+
+V2 -> CP: Click "Enroll Now"
+CP -> V2: Redirect to login/register\n(if not authenticated)
+
+V2 -> AP: Register new account
+AP -> AS: POST /api/auth/register
+    note right
+        Input: {
+            "email": "hana@example.com",
+            "password": "securepass123",
+            "full_name": "Hana Ahmed"
+        }
+    end note
+AS -> UDB: Create user record
+AS --> AP: Return JWT token + user
+    note right
+        Output: {
+            "access_token": "jwt...",
+            "refresh_token": "jwt...",
+            "user": {
+                "id": "uuid",
+                "email": "hana@example.com",
+                "full_name": "Hana Ahmed"
+            }
+        }
+    end note
+
+AP -> CP: Redirect to checkout\n(authenticated)
+
+V2 -> CP: Select payment plan (3×$277)
+CP -> PS: POST /api/payments/checkout
+    note right
+        Input: {
+            "user_id": "uuid",
+            "items": [{
+                "course_id": "uuid",
+                "product_type": "course",
+                "price_usd": 777
+            }],
+            "payment_method": "STRIPE",
+            "is_payment_plan": true,
+            "payment_plan_months": 3
+        }
+    end note
+PS -> ODB: Create order (PENDING)
+PS -> ST: POST /v1/checkout/sessions
+    note right
+        Input: {
+            "mode": "subscription",
+            "line_items": [{
+                "price_data": {
+                    "currency": "usd",
+                    "unit_amount": 27700,
+                    "recurring": {"interval": "month", "interval_count": 1}
+                },
+                "quantity": 1
+            }],
+            "subscription_data": {
+                "metadata": {"order_id": "uuid"}
+            }
+        }
+    end note
+ST --> PS: Return checkout session URL
+PS --> CP: Return session URL
+    note right
+        Output: {
+            "session_url": "https://checkout.stripe.com/...",
+            "order_id": "uuid"
+        }
+    end note
+
+CP -> V2: Redirect to Stripe Checkout
+V2 -> ST: Complete payment
+ST -> PS: POST /api/webhooks/stripe\n(checkout.session.completed)
+    note right
+        Webhook payload: {
+            "type": "checkout.session.completed",
+            "data": {
+                "object": {
+                    "metadata": {"order_id": "uuid"},
+                    "payment_status": "paid"
+                }
+            }
+        }
+    end note
+
+PS -> ODB: Update order (COMPLETED)
+PS -> ES: Trigger enrollment
+ES -> EDB: Create enrollment (ACTIVE)
+ES -> ES: Initialize lesson progress\n(all lessons = not completed)
+
+PS -> NS: Trigger notifications
+NS -> AC2: Send order confirmation email
+NS -> AC2: Tag contact as "customer"\n+ "course_mother_wound"
+NS -> NS: Create in-app notification\n("Welcome to your course!")
+
+ST -> V2: Redirect to confirmation page
+
+V2 -> CP: View confirmation page\nwith upsell offer
+
+' ====================================================
+' FLOW 3: Course Learning → Progress → Completion
+' ====================================================
+
+newpage "Flow 3: Course Learning → Progress → Completion"
+
+actor "Student" as S
+participant "Dashboard" as DB
+participant "Course Viewer" as CV
+participant "Course Service\n(Edge Function)" as CS
+participant "Enrollment Service\n(Edge Function)" as ES3
+participant "Notification Service\n(Edge Function)" as NS3
+participant "Vimeo API" as VM
+database "Enrollments DB" as EDB3
+database "Lessons DB" as LSDB
+
+S -> DB: Login → Dashboard Home
+DB -> ES3: GET /api/enrollments?user_id=uuid
+ES3 -> EDB3: Fetch active enrollments
+ES3 --> DB: Return enrollments with progress
+    note right
+        Output: {
+            "enrollments": [{
+                "id": "uuid",
+                "course": {"title_ar": "...", "slug": "mother-wound"},
+                "status": "ACTIVE",
+                "progress": {"total": 27, "completed": 8, "percent": 29.6},
+                "last_accessed_at": "2026-04-10T..."
+            }]
+        }
+    end note
+
+DB -> S: Show "Continue where you left off"\n(Module 3, Lesson 2)
+
+S -> CV: Click "Resume Lesson"
+CV -> CS: GET /api/courses/mother-wound/lessons/{lesson_id}
+CS -> LSDB: Fetch lesson + resources
+CS --> CV: Return lesson data
+    note right
+        Output: {
+            "lesson": {
+                "id": "uuid",
+                "title_ar": "...",
+                "video_url": "https://vimeo.com/...",
+                "content_ar": "...",
+                "resources": [
+                    {"title": "Worksheet PDF", "file_url": "..."},
+                    {"title": "Meditation Audio", "file_url": "..."}
+                ]
+            },
+            "progress": {
+                "is_completed": false,
+                "last_position_seconds": 342
+            }
+        }
+    end note
+
+CV -> VM: Load secure video\n(signed URL)
+VM --> CV: Stream video content
+
+S -> CV: Watch lesson + complete exercises
+
+S -> CV: Click "Mark as Complete"
+CV -> ES3: PUT /api/enrollments/{id}/progress
+    note right
+        Input: {
+            "lesson_id": "uuid",
+            "is_completed": true,
+            "last_position_seconds": 1245,
+            "notes": "Key insight about..."
+        }
+    end note
+ES3 -> EDB3: Update lesson progress
+ES3 -> ES3: Recalculate course progress
+ES3 -> ES3: Check if module completed
+ES3 --> CV: Return updated progress
+    note right
+        Output: {
+            "lesson_completed": true,
+            "module_completed": true,
+            "course_progress": {
+                "total": 27,
+                "completed": 9,
+                "percent": 33.3
+            },
+            "next_lesson": {
+                "id": "uuid",
+                "title_ar": "..."
+            },
+            "milestone": "MODULE_3_COMPLETE"
+        }
+    end note
+
+CV -> S: Show celebration animation\n+ "Module 3 Complete! 🎉"
+
+ES3 -> NS3: Send milestone notification
+NS3 -> S: In-app notification\n("Congratulations on completing Module 3!")
+NS3 -> NS3: Send progress email via ActiveCampaign
+
+== Course 100% Complete ==
+
+S -> CV: Complete final lesson
+CV -> ES3: PUT /api/enrollments/{id}/progress
+ES3 -> ES3: Detect course 100% complete
+ES3 -> ES3: Generate certificate PDF
+ES3 -> EDB3: Update enrollment\n(status=COMPLETED, certificate_url=...)
+ES3 --> CV: Return completion data
+    note right
+        Output: {
+            "course_completed": true,
+            "certificate_url": "https://storage.../cert.pdf",
+            "upsell_recommendation": {
+                "course_slug": "royal-feminine-love",
+                "discount_percent": 20,
+                "message_ar": "..."
+            }
+        }
+    end note
+
+CV -> S: Show completion screen\n+ Certificate download\n+ Testimonial request\n+ Upsell to next tier
+
+' ====================================================
+' FLOW 4: High-Ticket Application → Clarity Call
+' ====================================================
+
+newpage "Flow 4: High-Ticket Application Funnel"
+
+actor "Prospect" as P
+participant "Community\nProgram Page" as CPP
+participant "Application\nForm" as AF
+participant "Application Service\n(Edge Function)" as APS
+participant "Lead Service\n(Edge Function)" as LS4
+participant "Calendly API" as CAL
+participant "Notification Service\n(Edge Function)" as NS4
+participant "ActiveCampaign" as AC4
+database "Applications DB" as ADB
+
+P -> CPP: View Community Program page\n(/programs/community)
+CPP -> P: Render sales page with VSL,\ntestimonials, $6,800 pricing,\napplication form
+
+P -> AF: Fill application form
+AF -> APS: POST /api/applications/submit
+    note right
+        Input: {
+            "course_id": "uuid",
+            "full_name": "Tala Mansour",
+            "email": "tala@example.com",
+            "phone": "+971501234567",
+            "age_range": "35-45",
+            "current_situation": "Married, feeling lost...",
+            "biggest_struggle": "Lost myself in motherhood...",
+            "transformation_goal": "Complete feminine awakening...",
+            "previous_investment": true,
+            "budget_range": "$5K-$10K",
+            "referral_source": "Instagram",
+            "additional_notes": "..."
+        }
+    end note
+
+APS -> ADB: Save application (SUBMITTED)
+APS -> LS4: Capture as lead
+LS4 -> AC4: Create/update contact
+    note right
+        Tags: ["application_submitted",
+               "high_ticket_prospect",
+               "community_program"]
+    end note
+AC4 --> LS4: Contact tagged
+
+APS -> CAL: GET /scheduling_links
+CAL --> APS: Return booking URL
+APS --> AF: Application submitted
+    note right
+        Output: {
+            "application_id": "uuid",
+            "status": "SUBMITTED",
+            "calendly_booking_url": "https://calendly.com/randa/clarity-call",
+            "message": "Thank you! Book your free clarity call below."
+        }
+    end note
+
+AF -> P: Show thank-you page\nwith Calendly embed
+
+P -> CAL: Book clarity call
+CAL -> APS: POST /api/webhooks/calendly\n(invitee.created)
+    note right
+        Webhook: {
+            "event": "invitee.created",
+            "payload": {
+                "email": "tala@example.com",
+                "event_start_time": "2026-04-20T10:00:00Z"
+            }
+        }
+    end note
+APS -> ADB: Update application\n(CALL_SCHEDULED)
+APS -> NS4: Send confirmation
+NS4 -> AC4: Trigger pre-call email sequence
+    note right
+        Email 1 (immediate): "Your call is confirmed!"
+        Email 2 (24h before): "Preparing for your call"
+    end note
+
+== After Clarity Call (Manual) ==
+
+note over APS: Coach Randa or enrollment\nspecialist updates status\nafter the call
+
+APS -> ADB: Update status (ACCEPTED)
+APS -> NS4: Send enrollment email\nwith payment link
+NS4 -> P: Email with checkout link\n($6,800 / 6×$1,200)
+
+' ====================================================
+' FLOW 5: Blog Content → Lead Magnet → Nurture
+' ====================================================
+
+newpage "Flow 5: Blog → Lead Magnet → Email Nurture"
+
+actor "Reader" as R
+participant "Blog Page" as BP
+participant "Blog Service\n(Edge Function)" as BS
+participant "Lead Service\n(Edge Function)" as LS5
+participant "ActiveCampaign" as AC5
+database "Blog DB" as BDB
+database "Leads DB" as LDB5
+
+R -> BP: Visit blog via Google Search\n(/blog/mother-wound-signs)
+BP -> BS: GET /api/blog/posts/mother-wound-signs
+BS -> BDB: Fetch post by slug
+BS --> BP: Return blog post
+    note right
+        Output: {
+            "post": {
+                "title_ar": "10 علامات على جرح الأم",
+                "content_ar": "...",
+                "category": "healing",
+                "read_time_minutes": 8,
+                "related_lead_magnet": {
+                    "slug": "mother-wound-checklist",
+                    "title_ar": "قائمة فحص جرح الأم"
+                },
+                "related_posts": [...]
+            }
+        }
+    end note
+
+BP -> R: Render article with:\n- Content\n- Sidebar lead magnet CTA\n- In-article content upgrade\n- Related program CTA
+
+R -> BP: Click "Download Free Checklist"
+BP -> R: Show email capture modal
+
+R -> BP: Submit email
+BP -> LS5: POST /api/leads/capture
+    note right
+        Input: {
+            "email": "reader@example.com",
+            "source": "BLOG",
+            "lead_magnet_id": "mother-wound-checklist"
+        }
+    end note
+LS5 -> LDB5: Save lead
+LS5 -> AC5: Create contact + tag
+    note right
+        Tags: ["blog_lead",
+               "interest_healing",
+               "magnet_mother_wound_checklist"]
+        Automation: "healing_nurture_sequence"
+    end note
+AC5 --> LS5: Contact created
+LS5 --> BP: Return download URL
+    note right
+        Output: {
+            "lead_id": "uuid",
+            "download_url": "https://storage.../mother-wound-checklist.pdf"
+        }
+    end note
+
+BP -> R: Deliver PDF download\n+ Show related program CTA
+
+== Email Nurture (Automated by ActiveCampaign) ==
+
+AC5 -> R: Day 0: "Here's your checklist + welcome"
+AC5 -> R: Day 1: "Coach Randa's healing story"
+AC5 -> R: Day 3: "Student transformation: How Mona healed..."
+AC5 -> R: Day 5: "3 steps to begin healing your mother wound"
+AC5 -> R: Day 7: "Ready to go deeper? Mother Wound Program ($777)"
+
+@enduml

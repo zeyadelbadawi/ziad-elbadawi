@@ -1,0 +1,203 @@
+@startuml "Feminine Queens Awakening - UI Navigation Flow"
+
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+skinparam state {
+    BackgroundColor #FFF8F0
+    BorderColor #4A1A6B
+    FontColor #2D2D2D
+    ArrowColor #4A1A6B
+}
+
+title Feminine Queens Awakening - UI Navigation Paths (State Machine)
+
+' ==================== LEVEL 0: ENTRY ====================
+
+[*] --> Home : Visit site
+
+' ==================== LEVEL 1: PRIMARY PAGES ====================
+
+state "Home" as Home {
+    state "Hero + VSL" as hero
+    state "Programs Preview" as progPreview
+    state "Testimonials" as testPreview
+    state "Free Resource CTA" as freeCTA
+}
+
+state "About" as About
+state "Programs" as Programs
+state "Book" as Book
+state "Blog" as Blog
+state "Free Resources" as Free
+state "Quiz" as Quiz
+state "Testimonials Hub" as Testimonials
+state "Contact" as Contact
+
+' ==================== LEVEL 2: PROGRAM DETAILS ====================
+
+state "Program Detail" as ProgramDetail {
+    state "Sales Content" as salesContent
+    state "Curriculum" as curriculum
+    state "Pricing Section" as pricing
+    state "Testimonials" as progTest
+    state "FAQ" as progFAQ
+}
+
+state "Checkout" as Checkout {
+    state "Cart Summary" as cart
+    state "Payment Selection" as paySelect
+    state "Stripe/PayPal" as payProcess
+    state "Confirmation + Upsell" as confirm
+}
+
+state "Application Flow" as AppFlow {
+    state "Application Form" as appForm
+    state "Thank You + Calendly" as appThankYou
+    state "Call Scheduled" as callScheduled
+}
+
+' ==================== LEVEL 2: BLOG DETAIL ====================
+
+state "Blog Post" as BlogPost {
+    state "Article Content" as article
+    state "Lead Magnet CTA" as blogLead
+    state "Related Posts" as related
+}
+
+' ==================== LEVEL 2: QUIZ FLOW ====================
+
+state "Quiz Flow" as QuizFlow {
+    state "Questions (7)" as questions
+    state "Email Capture" as quizEmail
+    state "Results + Recommendation" as quizResults
+}
+
+' ==================== AUTH ====================
+
+state "Auth" as Auth {
+    state "Login" as login
+    state "Register" as register
+    state "Reset Password" as resetPw
+}
+
+' ==================== LEVEL 2: DASHBOARD ====================
+
+state "Dashboard" as Dashboard {
+    state "Dashboard Home" as dashHome
+    state "My Courses" as myCourses
+    state "Course Viewer" as courseViewer
+    state "Progress" as progressPage
+    state "Saved Content" as savedContent
+    state "Purchases" as purchasesPage
+    state "Community" as communityPage
+    state "Profile" as profilePage
+    state "Support" as supportPage
+}
+
+' ==================== NAVIGATION: LEVEL 1 (Global Nav) ====================
+
+Home --> About : tap "About"
+Home --> Programs : tap "Programs"
+Home --> Book : tap "Book"
+Home --> Blog : tap "Blog"
+Home --> Free : tap "Free Resources"
+Home --> Quiz : tap "Take Quiz" (CTA)
+Home --> Testimonials : tap "Testimonials"
+Home --> Contact : tap "Contact"
+Home --> Auth : tap "Login"
+Home --> Dashboard : tap "Dashboard" (if logged in)
+
+' All Level 1 pages can reach each other via global nav
+About --> Home : back / logo
+About --> Programs : nav
+Programs --> Home : back / logo
+Book --> Home : back / logo
+Blog --> Home : back / logo
+Free --> Home : back / logo
+Testimonials --> Home : back / logo
+Contact --> Home : back / logo
+
+' ==================== NAVIGATION: LEVEL 1 → LEVEL 2 ====================
+
+Programs --> ProgramDetail : select program
+ProgramDetail --> Programs : back to all programs
+ProgramDetail --> Checkout : "Enroll Now" ($555-$1,111)
+ProgramDetail --> AppFlow : "Apply Now" ($6,800-$15,000)
+ProgramDetail --> Free : download related resource
+
+Blog --> BlogPost : read article
+BlogPost --> Blog : back to blog
+BlogPost --> ProgramDetail : CTA to related program
+
+Quiz --> QuizFlow : start quiz
+QuizFlow --> ProgramDetail : view recommended program
+
+Book --> Checkout : "Buy Book"
+Free --> QuizFlow : take quiz
+
+' ==================== CHECKOUT FLOW ====================
+
+Checkout --> Auth : if not logged in
+Auth --> Checkout : after login/register
+Checkout --> Dashboard : purchase complete
+
+confirm --> ProgramDetail : view upsell program
+
+' ==================== APPLICATION FLOW ====================
+
+AppFlow --> Auth : if not logged in
+appForm --> appThankYou : submit
+appThankYou --> callScheduled : book call
+
+' ==================== DASHBOARD NAVIGATION ====================
+
+Auth --> Dashboard : after login
+Dashboard --> Home : logo / public site
+
+dashHome --> myCourses : view courses
+dashHome --> courseViewer : resume lesson
+myCourses --> courseViewer : start/continue course
+courseViewer --> myCourses : back to courses
+
+dashHome --> progressPage : view progress
+dashHome --> communityPage : community
+dashHome --> purchasesPage : purchases
+dashHome --> profilePage : profile
+dashHome --> supportPage : support
+dashHome --> savedContent : saved
+
+' ==================== DASHBOARD → PUBLIC ====================
+
+myCourses --> ProgramDetail : browse available (upsell)
+communityPage --> BlogPost : shared article
+
+' ==================== LEAD CAPTURE POINTS ====================
+
+note right of Home
+  **Email Capture Points:**
+  1. Homepage popup (exit-intent)
+  2. Quiz (before results)
+  3. Free Resources (all gated)
+  4. Book page (free chapter)
+  5. Blog sidebar
+  6. Blog content upgrade
+  7. Program pages (related resource)
+  8. Footer newsletter
+  9. Checkout abandonment
+  10. Webinar registration
+end note
+
+note right of Dashboard
+  **Dashboard Sections:**
+  - Home (overview + resume)
+  - My Courses (active/completed/available)
+  - Course Viewer (video + resources)
+  - Progress (stats + streaks)
+  - Saved Content (bookmarks)
+  - Purchases (orders + installments)
+  - Community (forum + live sessions)
+  - Profile (settings)
+  - Support (help + contact)
+end note
+
+@enduml

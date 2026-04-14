@@ -1,0 +1,352 @@
+@startuml "Feminine Queens Awakening - ER Diagram"
+
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontSize 11
+
+title Feminine Queens Awakening - Database Entity Relationship Diagram
+
+entity "users" as users {
+    * id : uuid <<PK>>
+    --
+    * email : varchar(255) <<UNIQUE>>
+    * password_hash : varchar(255)
+    * full_name : varchar(255)
+    phone : varchar(50)
+    avatar_url : text
+    * role : enum('ADMIN','STUDENT','GUEST')
+    * language : varchar(5) = 'ar'
+    * is_active : boolean = true
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "user_profiles" as profiles {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>> <<UNIQUE>>
+    bio : text
+    date_of_birth : date
+    country : varchar(100)
+    relationship_status : varchar(50)
+    notification_email : boolean = true
+    notification_push : boolean = true
+    marketing_opt_in : boolean = true
+}
+
+entity "courses" as courses {
+    * id : uuid <<PK>>
+    --
+    * slug : varchar(255) <<UNIQUE>>
+    * title_ar : varchar(500)
+    title_en : varchar(500)
+    * description_ar : text
+    description_en : text
+    * price_usd : decimal(10,2)
+    sale_price_usd : decimal(10,2)
+    payment_plan_months : integer
+    payment_plan_amount : decimal(10,2)
+    * format : enum('SELF_PACED','COHORT','ONE_ON_ONE')
+    duration_description : varchar(255)
+    thumbnail_url : text
+    vsl_video_url : text
+    * is_published : boolean = true
+    * sort_order : integer
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "modules" as modules {
+    * id : uuid <<PK>>
+    --
+    * course_id : uuid <<FK>>
+    * title_ar : varchar(500)
+    title_en : varchar(500)
+    description_ar : text
+    * sort_order : integer
+    is_locked_by_default : boolean = false
+}
+
+entity "lessons" as lessons {
+    * id : uuid <<PK>>
+    --
+    * module_id : uuid <<FK>>
+    * title_ar : varchar(500)
+    title_en : varchar(500)
+    content_ar : text
+    video_url : text
+    video_duration_seconds : integer
+    * sort_order : integer
+    is_free_preview : boolean = false
+}
+
+entity "lesson_resources" as resources {
+    * id : uuid <<PK>>
+    --
+    * lesson_id : uuid <<FK>>
+    * title : varchar(255)
+    * file_url : text
+    * file_type : varchar(50)
+    file_size_bytes : bigint
+}
+
+entity "enrollments" as enrollments {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * course_id : uuid <<FK>>
+    * order_id : uuid <<FK>>
+    * status : enum('ACTIVE','COMPLETED','EXPIRED','CANCELLED')
+    * enrolled_at : timestamptz
+    completed_at : timestamptz
+    certificate_url : text
+    last_accessed_at : timestamptz
+}
+
+entity "lesson_progress" as progress {
+    * id : uuid <<PK>>
+    --
+    * enrollment_id : uuid <<FK>>
+    * lesson_id : uuid <<FK>>
+    * is_completed : boolean = false
+    completed_at : timestamptz
+    last_position_seconds : integer = 0
+    notes : text
+}
+
+entity "orders" as orders {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * order_number : varchar(50) <<UNIQUE>>
+    * total_amount_usd : decimal(10,2)
+    discount_amount_usd : decimal(10,2) = 0
+    * payment_status : enum('PENDING','COMPLETED','FAILED','REFUNDED')
+    * payment_method : enum('STRIPE','PAYPAL','BANK_TRANSFER')
+    stripe_payment_intent_id : varchar(255)
+    paypal_order_id : varchar(255)
+    is_payment_plan : boolean = false
+    payment_plan_months : integer
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "order_items" as order_items {
+    * id : uuid <<PK>>
+    --
+    * order_id : uuid <<FK>>
+    course_id : uuid <<FK>>
+    * product_type : varchar(50)
+    * product_name : varchar(255)
+    * quantity : integer = 1
+    * unit_price_usd : decimal(10,2)
+    * total_price_usd : decimal(10,2)
+}
+
+entity "payment_installments" as installments {
+    * id : uuid <<PK>>
+    --
+    * order_id : uuid <<FK>>
+    * installment_number : integer
+    * amount_usd : decimal(10,2)
+    * due_date : date
+    paid_at : timestamptz
+    * payment_status : enum('PENDING','COMPLETED','FAILED','REFUNDED')
+    stripe_invoice_id : varchar(255)
+}
+
+entity "leads" as leads {
+    * id : uuid <<PK>>
+    --
+    * email : varchar(255)
+    full_name : varchar(255)
+    phone : varchar(50)
+    * source : enum('QUIZ','FREE_RESOURCE','BOOK_CHAPTER','NEWSLETTER','BLOG','WEBINAR','EXIT_INTENT')
+    lead_magnet_id : varchar(100)
+    quiz_persona : enum('SARA','HANA','TALA','REEM')
+    recommended_course_id : uuid <<FK>>
+    activecampaign_contact_id : varchar(100)
+    is_converted : boolean = false
+    converted_user_id : uuid <<FK>>
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "quiz_results" as quiz_results {
+    * id : uuid <<PK>>
+    --
+    lead_id : uuid <<FK>>
+    * session_id : varchar(100)
+    * answers : jsonb
+    * persona : enum('SARA','HANA','TALA','REEM')
+    * recommended_course_id : uuid <<FK>>
+    * completed_at : timestamptz
+}
+
+entity "blog_posts" as blog_posts {
+    * id : uuid <<PK>>
+    --
+    * slug : varchar(255) <<UNIQUE>>
+    * title_ar : varchar(500)
+    title_en : varchar(500)
+    * excerpt_ar : text
+    * content_ar : text
+    content_en : text
+    * category : varchar(100)
+    tags : jsonb
+    featured_image_url : text
+    * author_name : varchar(255)
+    * read_time_minutes : integer
+    * status : enum('DRAFT','PUBLISHED','ARCHIVED')
+    seo_title : varchar(255)
+    seo_description : text
+    published_at : timestamptz
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "testimonials" as testimonials {
+    * id : uuid <<PK>>
+    --
+    * student_name : varchar(255)
+    student_photo_url : text
+    course_id : uuid <<FK>>
+    * content_ar : text
+    content_en : text
+    video_url : text
+    rating : integer
+    transformation_type : varchar(100)
+    is_featured : boolean = false
+    * is_published : boolean = true
+    * sort_order : integer
+    * created_at : timestamptz
+}
+
+entity "applications" as applications {
+    * id : uuid <<PK>>
+    --
+    * course_id : uuid <<FK>>
+    * full_name : varchar(255)
+    * email : varchar(255)
+    * phone : varchar(50)
+    * age_range : varchar(20)
+    * current_situation : text
+    * biggest_struggle : text
+    * transformation_goal : text
+    * previous_investment : boolean
+    * budget_range : varchar(50)
+    * referral_source : varchar(100)
+    additional_notes : text
+    * status : enum('SUBMITTED','UNDER_REVIEW','CALL_SCHEDULED','ACCEPTED','REJECTED')
+    calendly_event_url : text
+    call_scheduled_at : timestamptz
+    reviewed_at : timestamptz
+    * created_at : timestamptz
+}
+
+entity "community_posts" as community_posts {
+    * id : uuid <<PK>>
+    --
+    * author_id : uuid <<FK>>
+    course_id : uuid <<FK>>
+    * title : varchar(500)
+    * content : text
+    parent_post_id : uuid <<FK>>
+    likes_count : integer = 0
+    is_pinned : boolean = false
+    * created_at : timestamptz
+    * updated_at : timestamptz
+}
+
+entity "notifications" as notifications {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * type : varchar(50)
+    * title : varchar(255)
+    * message : text
+    link : text
+    * is_read : boolean = false
+    * created_at : timestamptz
+}
+
+entity "saved_content" as saved_content {
+    * id : uuid <<PK>>
+    --
+    * user_id : uuid <<FK>>
+    * content_type : varchar(50)
+    * content_id : uuid
+    * saved_at : timestamptz
+}
+
+entity "bundles" as bundles {
+    * id : uuid <<PK>>
+    --
+    * slug : varchar(255) <<UNIQUE>>
+    * name_ar : varchar(255)
+    name_en : varchar(255)
+    * description_ar : text
+    * regular_price_usd : decimal(10,2)
+    * bundle_price_usd : decimal(10,2)
+    * savings_percent : integer
+    * is_active : boolean = true
+}
+
+entity "bundle_courses" as bundle_courses {
+    * id : uuid <<PK>>
+    --
+    * bundle_id : uuid <<FK>>
+    * course_id : uuid <<FK>>
+}
+
+entity "lead_magnets" as lead_magnets {
+    * id : uuid <<PK>>
+    --
+    * slug : varchar(255) <<UNIQUE>>
+    * title_ar : varchar(255)
+    title_en : varchar(255)
+    * description_ar : text
+    * format : varchar(50)
+    * file_url : text
+    target_persona : enum('SARA','HANA','TALA','REEM')
+    * email_sequence_tag : varchar(100)
+    download_count : integer = 0
+    * is_active : boolean = true
+}
+
+' ==================== RELATIONSHIPS ====================
+
+users ||--o| profiles : "profiles.user_id → users.id"
+users ||--o{ enrollments : "enrollments.user_id → users.id"
+users ||--o{ orders : "orders.user_id → users.id"
+users ||--o{ community_posts : "community_posts.author_id → users.id"
+users ||--o{ notifications : "notifications.user_id → users.id"
+users ||--o{ saved_content : "saved_content.user_id → users.id"
+
+courses ||--o{ modules : "modules.course_id → courses.id"
+courses ||--o{ enrollments : "enrollments.course_id → courses.id"
+courses ||--o{ testimonials : "testimonials.course_id → courses.id"
+courses ||--o{ applications : "applications.course_id → courses.id"
+courses ||--o{ community_posts : "community_posts.course_id → courses.id"
+
+modules ||--o{ lessons : "lessons.module_id → modules.id"
+lessons ||--o{ resources : "resources.lesson_id → lessons.id"
+lessons ||--o{ progress : "progress.lesson_id → lessons.id"
+
+enrollments ||--o{ progress : "progress.enrollment_id → enrollments.id"
+enrollments }o--|| orders : "enrollments.order_id → orders.id"
+
+orders ||--o{ order_items : "order_items.order_id → orders.id"
+orders ||--o{ installments : "installments.order_id → orders.id"
+order_items }o--o| courses : "order_items.course_id → courses.id"
+
+leads }o--o| quiz_results : "quiz_results.lead_id → leads.id"
+leads }o--o| courses : "leads.recommended_course_id → courses.id"
+leads }o--o| users : "leads.converted_user_id → users.id"
+quiz_results }o--|| courses : "quiz_results.recommended_course_id → courses.id"
+
+bundles ||--o{ bundle_courses : "bundle_courses.bundle_id → bundles.id"
+bundle_courses }o--|| courses : "bundle_courses.course_id → courses.id"
+
+community_posts ||--o{ community_posts : "community_posts.parent_post_id → community_posts.id"
+
+@enduml
