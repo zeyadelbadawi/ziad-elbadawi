@@ -1,0 +1,48 @@
+{
+  "status": "partial_success",
+  "results": [
+    {
+      "status": "success",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizlqyaahgq/hero-bg-gold-abstract.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizlqyaahgq/hero-bg-gold-abstract.png",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizlqyaahgq/hero-bg-gold-abstract.png",
+      "message": "Image generated successfully.\n\nNote: The image is on CDN and will be displayed automatically. Just describe what you created briefly, no need to mention filenames or URLs.",
+      "description": "Abstract premium geometric background with gold and amber gradient lines flowing diagonally on a clean white/cream background, subtle tech circuit patterns, elegant and modern, suitable for a developer portfolio hero section",
+      "style": "minimalist",
+      "filename": "hero-bg-gold-abstract.jpg"
+    },
+    {
+      "status": "success",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizmyiaahha/section-bg-dark-gold.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizmyiaahha/section-bg-dark-gold.png",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizmyiaahha/section-bg-dark-gold.png",
+      "message": "Image generated successfully.\n\nNote: The image is on CDN and will be displayed automatically. Just describe what you created briefly, no need to mention filenames or URLs.",
+      "description": "Abstract dark navy blue background with golden amber geometric shapes, floating particles, tech-inspired network nodes connected by thin gold lines, premium feel for a developer portfolio section",
+      "style": "minimalist",
+      "filename": "section-bg-dark-gold.jpg"
+    },
+    {
+      "status": "success",
+      "path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizhayaahia/pattern-gold-tech.png",
+      "absolute_path": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizhayaahia/pattern-gold-tech.png",
+      "url": "https://mgx-backend-cdn.metadl.com/generate/images/967904/2026-06-02/pyizhayaahia/pattern-gold-tech.png",
+      "message": "Image generated successfully.\n\nNote: The image is on CDN and will be displayed automatically. Just describe what you created briefly, no need to mention filenames or URLs.",
+      "description": "Elegant gold and white abstract pattern with subtle code symbols and brackets floating, clean modern tech aesthetic, light background with amber accents",
+      "style": "minimalist",
+      "filename": "pattern-gold-tech.jpg"
+    },
+    {
+      "status": "failed",
+      "path": "",
+      "absolute_path": "",
+      "url": "",
+      "message": "Image generation failed: Image creation failed: HTTP 400 error: {\"error\":{\"message\":\"Transparent background is not supported for this model. (request id: 2026060212131280989582537967889)\",\"type\":\"image_generation_user_error\",\"param\":\"background\",\"code\":\"invalid_value\"}}",
+      "description": "Professional headshot placeholder silhouette with gold gradient outline on transparent background, modern geometric style developer avatar",
+      "style": "minimalist",
+      "filename": "developer-avatar-gold.png"
+    }
+  ],
+  "success_count": 3,
+  "failed_count": 1,
+  "message": "Generated 3/4 images"
+}
