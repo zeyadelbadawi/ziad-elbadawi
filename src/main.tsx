@@ -9,6 +9,9 @@ async function initializeApp() {
   // Intentionally skip React mounting so the crawler-facing markup stays
   // lightweight and self-contained — no client-side hydration
   //  needed.
+
+
+    
   if (
     document
       .querySelector('meta[name="prerender-static-page"]')

@@ -29,7 +29,7 @@ const projects = [
     description:
       "Corporate holding company website for ASG ecosystem, presenting the group structure, business units, smart security solutions, AI-powered infrastructure, smart city technologies, distribution operations, and related subsidiaries.",
     image: "/assets/screenshot-1.png",
-    techs: ["Next.js", "React", "Node.js", "PostgreSQL", "CMS"],
+    techs: ["Next.js", "React", "Landing Page", "Animation"],
     link: "https://www.asg.com.eg/",
     year: "2024",
   },
