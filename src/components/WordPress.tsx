@@ -4,12 +4,12 @@ import { Puzzle, ShieldCheck, Gauge, Palette } from "lucide-react";
 
 const plugins = [
   {
-    name: "Tutor LMS Exam Lock Lite",
+    name: "Tutor LMS Exam Lock",
     desc: "Browser-based exam security with fullscreen enforcement, input blocking, and auto-submit on violation",
     techs: ["PHP", "JavaScript", "Tutor LMS"],
   },
   {
-    name: "Tutor LMS Plagiarism Lite",
+    name: "Tutor LMS Plagiarism",
     desc: "Full-stack plagiarism engine with text extraction, OCR fallback, Google API integration, and weighted scoring",
     techs: ["PHP", "JavaScript", "MySQL", "OCR"],
   },
