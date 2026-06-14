@@ -35,7 +35,7 @@ const ProductionWebsites = () => {
             Production Portfolio
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-[#1a1a2e]">
-            11+ <span className="gold-gradient-text">Live Websites</span>
+            12+ <span className="gold-gradient-text">Live Websites</span>
           </h2>
           <p className="text-base text-[#2d2d2d]/60 mt-4 max-w-xl mx-auto" style={{ fontFamily: "Inter, sans-serif" }}>
             Production websites currently serving real businesses and users.
