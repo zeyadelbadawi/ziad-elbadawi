@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const stats = [
-  { value: "11+", label: "Production Systems" },
+  { value: "12+", label: "Production Systems" },
   { value: "4", label: "Custom Plugins" },
   { value: "3+", label: "Years Experience" },
 ];
