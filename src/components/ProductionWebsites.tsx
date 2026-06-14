@@ -14,6 +14,7 @@ const websites = [
   { name: "Arab Security Gulf", desc: "Gulf Operations", url: "https://arabsecuritygulf.com" },
   { name: "RAWC UAE", desc: "Rehabilitatio Center", url: "https://rawc.ae" },
   { name: "RAWC Portal", desc: "Rehabilitation Center Portal", url: "https://rawc.vercel.app/clientportal" },
+    { name: "Dr Sofia Mora", desc: "Skincare & Self-Care Brand", url: "https://drsofiamora.com" },
 ];
 
 const ProductionWebsites = () => {
