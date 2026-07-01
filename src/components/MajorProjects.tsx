@@ -19,9 +19,9 @@ const projects = [
     description:
       "Comprehensive corporate website for Arab Security Group, a leading provider of smart security solutions, AI-powered surveillance systems, and integrated safety infrastructure across the Middle East and Gulf region.",
     image: "/assets/screenshot-2.png",
-    techs: ["Next.js", "React", "Node.js", "Custom CMS"],
+    techs: ["Vite", "React", "Node.js", "Custom CMS"],
     link: "https://arab-security.com",
-    year: "2024",
+    year: "2025/2026",
   },
   {
     title: "ASG Holding Company",
@@ -29,9 +29,9 @@ const projects = [
     description:
       "Corporate holding company website for ASG ecosystem, presenting the group structure, business units, smart security solutions, AI-powered infrastructure, smart city technologies, distribution operations, and related subsidiaries.",
     image: "/assets/screenshot-1.png",
-    techs: ["Next.js", "React", "Landing Page", "Animation"],
+    techs: ["Vite", "React", "Landing Page", "Animation"],
     link: "https://www.asg.com.eg/",
-    year: "2024",
+    year: "2026",
   },
   {
     title: "ASG Distribution",
@@ -41,7 +41,7 @@ const projects = [
     image: "/assets/asg-distribution.png",
     techs: ["Next.js", "Node.js", "REST API", "PostgreSQL", "JWT", "Responsive"],
     link: "https://asgdistribution.com",
-    year: "2024",
+    year: "2023",
   },
   {
     title: "File Upload & Analysis System",
@@ -51,7 +51,7 @@ const projects = [
     image: "/assets/file-upload.png",
     techs: ["Next.js", "NestJS", "PostgreSQL", "Prisma", "Redis", "Bull"],
     link: null,
-    year: "2025",
+    year: "2024",
   },
 ];
 
