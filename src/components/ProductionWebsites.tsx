@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { ExternalLink } from "lucide-react";
 
 const websites = [
-  { name: "Masterpiece AVS", desc: "Smart Solutions", url: "https://masterpieceavs.com" },
+      { name: "Dr Sofia Mora", desc: "Skincare & Self-Care Brand", url: "https://drsofiamora.com" },
   { name: "Sure Business Solutions", desc: "Business Solutions", url: "https://sure-bs.com" },
   { name: "Arab Security", desc: "Security Solutions", url: "https://arab-security.com" },
   { name: "BritMed Healthcare", desc: "UK Healthcare Platform", url: "https://britmedhealthcare.co.uk" },
@@ -14,7 +14,6 @@ const websites = [
   { name: "Arab Security Gulf", desc: "Gulf Operations", url: "https://arabsecuritygulf.com" },
   { name: "RAWC UAE", desc: "Rehabilitatio Center", url: "https://rawc.ae" },
   { name: "RAWC Portal", desc: "Rehabilitation Center Portal", url: "https://rawc.vercel.app/clientportal" },
-    { name: "Dr Sofia Mora", desc: "Skincare & Self-Care Brand", url: "https://drsofiamora.com" },
 ];
 
 const ProductionWebsites = () => {
