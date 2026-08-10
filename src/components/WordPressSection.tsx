@@ -38,7 +38,11 @@ function useInView(threshold = 0.05) {
 }
 
 const wordpressSites = [
-    { name: "Masterpiece AVS", url: "https://masterpieceavs.com", desc: "Audio Visual Solutions" },
+{
+  name: "Dr. Sofia Mora",
+  url: "https://drsofiamora.com/",
+  desc: "Cosmetics & Beauty"
+},
     { name: "Sure BS", url: "https://sure-bs.com", desc: "Business Solutions" },
     { name: "BritMed Healthcare", url: "https://britmedhealthcare.co.uk", desc: "Healthcare Platform" },
     { name: "Arab Security", url: "https://arab-security.com", desc: "Security Solutions" },
